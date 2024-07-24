@@ -11,7 +11,14 @@
   overflow-x: hidden;
   padding: 20px;
 }
+.flex{
+  display: flex;
+  margin: auto;
+}
+.space{
+  margin:10px;
 
+}
 .custom-form{
   width: 500px;
 }

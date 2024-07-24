@@ -1,11 +1,15 @@
 import { useState } from "react";
 import * as XLSX from 'xlsx';
-
+import axios from "axios";
+import { CircularProgress } from '@mui/material';
 function App() {
 
   // onchange states
   const [excelFile, setExcelFile] = useState(null);
   const [typeError, setTypeError] = useState(null);
+  const [exportedData, setExportedData] = useState(null);
+  const [flagAPI,setFlagAPI]=useState(false);
+
 
   // submit state
   const [excelData, setExcelData] = useState(null);
@@ -35,15 +39,102 @@ function App() {
   
   // submit event
   const handleFileSubmit=(e)=>{
+   
     e.preventDefault();
     if(excelFile!==null){
       const workbook = XLSX.read(excelFile,{type: 'buffer'});
       const worksheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[worksheetName];
       const data = XLSX.utils.sheet_to_json(worksheet);
-      setExcelData(data.slice(0,10));
+      setExcelData(data);
+      console.log(data)
+      // data.forEach((row) => {
+      //   console.log(row.Addresses)
+      //   callYourApi(row.Addresses);
+      // });
     }
   }
+  const fetchDataForRow = async (row) => {
+    try {
+      // Replace 'YOUR_API_KEY' with your actual API key
+      const apiUrl = 'https://api.leptonmaps.com/v1/tata_aig/risk/natural_disasters';
+
+      // Set your API key
+      const apiKey = '8fdd369f3bed7217927e3e0128bfa4566dc3977406ba455e410a75e2339ff1d1';
+  
+      // Set custom headers
+      const headers = {
+        'accept': 'application/json',
+        'x-api-key': apiKey
+        // Add any additional headers as needed
+      };
+      const params = {
+        'address': row
+      }
+
+      const response = await axios.get(apiUrl, {
+        params: params,
+        headers: headers,
+      });
+     
+      return response.data; // Adjust this based on your API response structure
+    } catch (error) {
+      console.error('Error fetching data for row:', row.id, error);
+      return null;
+    }
+  };
+  
+  const handleExportClick = async () => {
+    setFlagAPI(true);
+    const exportedRows = [];
+
+    // Loop through each row in excelData and fetch data
+    if(!excelData){
+      alert("upload excel file ");
+      setFlagAPI(false);
+      return;
+    }
+    for (const row of excelData) {
+      const respdata = await fetchDataForRow(row.Addresses);
+      
+      if (respdata) {
+        // Add the required fields from the fetched data;
+       
+        exportedRows.push({
+            Addresses: row.Addresses,
+            Lat: respdata.address.lat,
+            Long:respdata.address.lng,
+            confidence_radius:respdata.address.confidence_radius,
+            location_type:respdata.address.location_type,
+            formatted_address: respdata.address.formatted_address,
+            cyclone: respdata.risk.cyclone.value,
+            cyclone_description:respdata.risk.cyclone.description,
+            earthquake:respdata.risk.earthquake_zone.value,
+            Peak_ground_acceleration:respdata.risk.earthquake.value,
+            flood: respdata.risk.flood.value,
+            flood_description:respdata.risk.flood.description,
+            rainfall: respdata.risk.rainfall.amount
+        });
+      }
+    }
+
+    // Update the state with the exported data
+    setExportedData(exportedRows);
+    setExcelData(null);
+    
+    // Call a function to export the data to Excel
+    setFlagAPI(false);
+    
+  };
+  const handleClick = (e)=>{
+    exportToExcel(exportedData);
+  }
+  const exportToExcel = (data) => {
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet 1');
+    XLSX.writeFile(workbook, 'exported_data.xlsx');
+  };
 
   return (
     <div className="wrapper">
@@ -51,34 +142,48 @@ function App() {
       <h3>Upload & View Excel Sheets</h3>
 
       {/* form */}
+      {
+            flagAPI && <CircularProgress/>
+        }
       <form className="form-group custom-form" onSubmit={handleFileSubmit}>
         <input type="file" className="form-control" required onChange={handleFile} />
         <button type="submit" className="btn btn-success btn-md">UPLOAD</button>
+        
         {typeError&&(
           <div className="alert alert-danger" role="alert">{typeError}</div>
         )}
       </form>
+      <div className="flex">
+     <div> <button type="submit" className="btn btn-primary btn-md mr-6"onClick={handleExportClick} >Get geocoded Data</button></div>
+     <div className="space"></div>
+     <div><button type="submit" className="btn btn-info btn-md mr-6" onClick={handleClick} >EXPORT</button></div>
+   
+     </div>
+     
+     
 
-      {/* view data */}
+     {/* view data */}
       <div className="viewer">
-        {excelData?(
+        
+       {excelData?(
           <div className="table-responsive">
             <table className="table">
 
               <thead>
                 <tr>
-                  {Object.keys(excelData[0]).map((key)=>(
-                    <th key={key}>{key}</th>
-                  ))}
+                  
+                    <th>Addresses</th>
+                
                 </tr>
               </thead>
 
               <tbody>
                 {excelData.map((individualExcelData, index)=>(
                   <tr key={index}>
-                    {Object.keys(individualExcelData).map((key)=>(
-                      <td key={key}>{individualExcelData[key]}</td>
-                    ))}
+                  
+                      <td>{individualExcelData.Addresses}</td>
+                    
+                   
                   </tr>
                 ))}
               </tbody>
@@ -90,6 +195,38 @@ function App() {
         )}
       </div>
 
+      <div className="viewer">
+       
+        {exportedData?(
+           <div className="table-responsive">
+             <table className="table">
+ 
+             <thead>
+                <tr>
+                  {Object.keys(exportedData[0]).map((key)=>(
+                    <th key={key}>{key}</th>
+                  ))}
+                </tr>
+              </thead>
+
+              <tbody>
+                {exportedData.map((individualExcelData, index)=>(
+                  <tr key={index}>
+                    {Object.keys(individualExcelData).map((key)=>(
+                      <td key={key}>{individualExcelData[key]}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+ 
+             </table>
+           </div>
+         ):(
+           <div>{!flagAPI && "No API response"}</div>
+          
+         )}
+       </div>
+      
     </div>
   );
 }
