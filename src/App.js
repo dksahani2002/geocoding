@@ -180,7 +180,7 @@ function App() {
             className="btn btn-primary btn-md mr-6"
             onClick={handleExportClick}
           >
-            Get geocoded Data
+            Get Natcat and geocoded Data
           </button>
         </div>
         <div className="space"></div>
