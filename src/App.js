@@ -97,11 +97,11 @@ function App() {
     }
     for (const row of excelData) {
       const respdata = await fetchDataForRow(row.Addresses);
-      setCounter(counter+1);
+      
       
       if (respdata) {
         // Add the required fields from the fetched data;
-       
+        setCounter(counter=>counter+1);
         exportedRows.push({
             Addresses: row.Addresses,
             Lat: respdata.address.lat,
@@ -115,14 +115,14 @@ function App() {
             Peak_ground_acceleration:respdata.risk.earthquake.value,
             flood: respdata.risk.flood.value,
             flood_description:respdata.risk.flood.description,
-            rainfall: respdata.risk.rainfall.value,
-            distance_to_fire_stations: respdata.distance.distance_to_fire_stations,
-            distance_to_lakes_and_beaches:respdata.distance.distance_to_lakes_and_beaches,
-            distance_to_lpg_gas_stations: respdata.distance.distance_to_lpg_gas_stations,
-            distance_to_petrol_and_cng_stations:respdata.distance.distance_to_petrol_and_cng_stations,
-            distance_to_seaports: respdata.distance.distance_to_seaports,
-            distance_to_banks: respdata.distance.distance_to_banks,
-            distance_to_hospitals: respdata.distance.distance_to_hospitals
+            rainfall_mm: respdata.risk.rainfall.value,
+            distance_to_fire_stations_m: respdata.distance.distance_to_fire_stations,
+            distance_to_lakes_and_beaches_m:respdata.distance.distance_to_lakes_and_beaches,
+            distance_to_lpg_gas_stations_m: respdata.distance.distance_to_lpg_gas_stations,
+            distance_to_petrol_and_cng_stations_m:respdata.distance.distance_to_petrol_and_cng_stations,
+            distance_to_seaports_m: respdata.distance.distance_to_seaports,
+            distance_to_banks_m: respdata.distance.distance_to_banks,
+            distance_to_hospitals_m: respdata.distance.distance_to_hospitals
         });
       }
     }
@@ -154,7 +154,7 @@ function App() {
       {/* form */}
       {
             flagAPI && <><CircularProgress/>
-                       <h1>{counter}</h1></>
+                       <h1>Cases counter : {counter}</h1></>
         }
       <form className="form-group custom-form" onSubmit={handleFileSubmit}>
         <input type="file" className="form-control" required onChange={handleFile} />
