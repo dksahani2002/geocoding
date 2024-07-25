@@ -7,6 +7,7 @@ function App() {
   // onchange states
   const [excelFile, setExcelFile] = useState(null);
   const [typeError, setTypeError] = useState(null);
+  const [counter, setCounter] = useState(0);
   const [exportedData, setExportedData] = useState(null);
   const [flagAPI,setFlagAPI]=useState(false);
 
@@ -60,7 +61,7 @@ function App() {
       const apiUrl = 'https://api.leptonmaps.com/v1/tata_aig/risk/natural_disasters';
 
       // Set your API key
-      const apiKey = '8fdd369f3bed7217927e3e0128bfa4566dc3977406ba455e410a75e2339ff1d1';
+      const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';
   
       // Set custom headers
       const headers = {
@@ -96,6 +97,7 @@ function App() {
     }
     for (const row of excelData) {
       const respdata = await fetchDataForRow(row.Addresses);
+      setCounter(counter+1);
       
       if (respdata) {
         // Add the required fields from the fetched data;
@@ -113,13 +115,21 @@ function App() {
             Peak_ground_acceleration:respdata.risk.earthquake.value,
             flood: respdata.risk.flood.value,
             flood_description:respdata.risk.flood.description,
-            rainfall: respdata.risk.rainfall.amount
+            rainfall: respdata.risk.rainfall.value,
+            distance_to_fire_stations: respdata.distance.distance_to_fire_stations,
+            distance_to_lakes_and_beaches:respdata.distance.distance_to_lakes_and_beaches,
+            distance_to_lpg_gas_stations: respdata.distance.distance_to_lpg_gas_stations,
+            distance_to_petrol_and_cng_stations:respdata.distance.distance_to_petrol_and_cng_stations,
+            distance_to_seaports: respdata.distance.distance_to_seaports,
+            distance_to_banks: respdata.distance.distance_to_banks,
+            distance_to_hospitals: respdata.distance.distance_to_hospitals
         });
       }
     }
 
     // Update the state with the exported data
     setExportedData(exportedRows);
+    
     setExcelData(null);
     
     // Call a function to export the data to Excel
@@ -143,7 +153,8 @@ function App() {
 
       {/* form */}
       {
-            flagAPI && <CircularProgress/>
+            flagAPI && <><CircularProgress/>
+                       <h1>{counter}</h1></>
         }
       <form className="form-group custom-form" onSubmit={handleFileSubmit}>
         <input type="file" className="form-control" required onChange={handleFile} />
@@ -213,7 +224,7 @@ function App() {
                 {exportedData.map((individualExcelData, index)=>(
                   <tr key={index}>
                     {Object.keys(individualExcelData).map((key)=>(
-                      <td key={key}>{individualExcelData[key]}</td>
+                      <td key={key}>{individualExcelData[key]?individualExcelData[key]:"null"}</td>
                     ))}
                   </tr>
                 ))}
