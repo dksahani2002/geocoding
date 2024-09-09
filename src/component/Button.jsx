@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Button = ({submit,text}) => {
+const Button = ({submit,text,disabled}) => {
   return (
      
       <div>
@@ -8,6 +8,7 @@ const Button = ({submit,text}) => {
             type="submit"
             className="btn btn-primary btn-md mr-6"
             onClick={submit}
+            disabled={disabled}
           >
              {text}
           </button>

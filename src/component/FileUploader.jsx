@@ -6,6 +6,7 @@ const FileUploader = ({
   handleFile,
   handleFileSubmit,
   typeError,
+  isAdresscolumn,
   handleExportClick,
   handleClick,
   text,
@@ -30,6 +31,11 @@ const FileUploader = ({
               {typeError}
             </div>
           )}
+          {!isAdresscolumn && (
+            <div className="alert alert-danger" role="alert">
+              Addresses column not available. please check file name and column
+            </div>
+          )}
         </form>
       </div>
 
@@ -37,8 +43,9 @@ const FileUploader = ({
         <Button
           submit={handleExportClick}
           text= {text}
+          disabled={!isAdresscolumn}
         />
-        <Button submit={handleClick} text="EXPORT" />
+        <Button submit={handleClick} text="EXPORT" disabled={!isAdresscolumn}/>
       </div>
     </div>
   );

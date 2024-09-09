@@ -14,6 +14,7 @@ function GeoCode() {
   const [exportedData, setExportedData] = useState(null);
   const [flagAPI, setFlagAPI] = useState(false);
   const [excelData, setExcelData] = useState(null);
+  const [isAdresscolumn,setIsAdresscolumn]=useState(true);
 
   const handleFile = (e) => {
     let fileTypes = [
@@ -46,6 +47,13 @@ function GeoCode() {
       const worksheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[worksheetName];
       const data = XLSX.utils.sheet_to_json(worksheet);
+      console.log("data: ",data);
+      if(!data[0].Addresses){
+        setIsAdresscolumn(false);
+      }
+      if(data[0].Addresses){
+        setIsAdresscolumn(true); 
+      }
       setExcelData(data);
     }
   };
@@ -119,6 +127,7 @@ function GeoCode() {
         handleExportClick={handleExportClick}
         handleClick={handleClick}
         text={"Get Geocode"}
+        isAdresscolumn={isAdresscolumn}
       />
       <ProgressDisplay counter={counter} flagAPI={flagAPI} />
       <DataViewer excelData={excelData} />
