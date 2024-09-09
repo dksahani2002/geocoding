@@ -1,0 +1,71 @@
+/* src/FileUploader.css */
+
+/* Container for the file uploader component */
+.file-uploader {
+  margin-bottom: 20px;
+}
+
+/* Form upload container styling */
+.form-upload-container {
+  background-color: #ffffff; /* Ensure form background is white */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading style */
+.form-upload-container h3 {
+  color: #003d79; /* Dark blue color for heading */
+  margin-bottom: 20px; /* Space below heading */
+  font-size: 1.5rem; /* Font size for heading */
+}
+
+/* Custom form styling */
+.custom-form {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  gap: 20px; /* Space between form elements */
+}
+
+/* Input field styling */
+.form-control {
+  padding: 12px; /* Padding inside input field */
+  font-size: 1rem; /* Font size */
+  border: 1px solid #cccccc; /* Light grey border */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Button container styling */
+.button-container {
+  display: flex;
+  gap: 20px; /* Spacing between buttons */
+  margin-top: 20px; /* Space above button container */
+}
+
+/* General button styles */
+.button-container .btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007bff; /* Primary button color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+.button-container .btn:hover {
+  background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+/* Alert styling */
+.alert-danger {
+  margin-top: 15px;
+  color: #dc3545;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+}

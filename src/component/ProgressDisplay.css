@@ -1,0 +1,21 @@
+/* src/ProgressDisplay.css */
+
+.progress-container {
+    padding: 20px;
+    background-color: #f5f5f5; /* Light background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: center; /* Center the text */
+    margin-bottom: 30px; /* Space below the component */
+  }
+  
+  .progress-container h2 {
+    color: #003d79; /* Dark blue color for heading */
+    font-size: 1.5rem; /* Font size for heading */
+    margin-bottom: 20px; /* Space below the heading */
+  }
+  
+  .progress-spinner {
+    margin-top: 20px; /* Space above the spinner */
+  }
+  

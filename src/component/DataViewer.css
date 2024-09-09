@@ -1,0 +1,62 @@
+/* src/DataViewer.css */
+
+/* Container for each data view section */
+.data-viewer { 
+    width: 100%;
+}
+
+.table-container {
+    margin-top: 20px;
+    max-height: 600px; /* Set maximum height for vertical scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    border: 1px solid #ddd; /* Border around the table container */
+    width: 100%; /* Ensure container width is 100% of its parent */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* General table styling */
+.table {
+    border-collapse: collapse; /* Ensures borders are merged */
+    font-family: Arial, sans-serif; /* Consistent font style */
+    width: max-content; /* Ensure the table width fits its content */
+}
+
+/* Excel-like table styling */
+.excel-table {
+    border: 1px solid #ddd;
+    background-color: #f9f9f9; /* Light background color */
+}
+
+/* Table headers and cells */
+.excel-table th, 
+.excel-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.excel-table thead {
+    background-color: #eaeaea; /* Slightly darker background for headers */
+}
+
+.excel-table th {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Serial number column */
+.excel-table th:first-child,
+.excel-table td:first-child {
+    width: 5%;
+    text-align: center;
+}
+
+/* No data message styling */
+.no-data {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    padding: 20px;
+}

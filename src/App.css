@@ -1,0 +1,25 @@
+
+/* Container for the entire application */
+.navbar {
+  background-color: skyblue; /* Background color of the navbar */
+  padding: 10px;
+  position: fixed; /* Fixes the navbar at the top */
+  top: 0; /* Aligns it to the top */
+  left: 0;
+  width: 100%; /* Full width of the viewport */
+  z-index: 1000; /* Ensure it stays above other content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure the main content is not hidden under the Navbar */
+.main-content {
+  margin-top: 100px; /* Adjust this value based on the height of your Navbar */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  flex: 1; /* Allow this section to take up remaining space */
+  overflow: auto; /* Ensure content inside can scroll if necessary */
+}

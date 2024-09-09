@@ -1,0 +1,63 @@
+/* src/Login.css */
+ 
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .login-box {
+    background-color: white; /* White background for the login box */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners for the login box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 300px;
+    max-width: 100%;
+  }
+  
+  .login-header {
+    color: skyblue; /* Sky blue text color for the header */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: skyblue; /* Sky blue text color for labels */
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .login-button {
+    background-color: skyblue; /* Sky blue background color for the button */
+    color: white; /* White text color for the button */
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .login-button:hover {
+    background-color: #4a9fd7; /* Slightly darker sky blue on hover */
+  }
+  

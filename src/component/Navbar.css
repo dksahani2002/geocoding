@@ -1,0 +1,53 @@
+/* src/Navbar.css */
+.navbar {
+  background-color: skyblue; /* Background color of the navbar */
+  padding: 10px;
+  position: fixed; /* Fixes the navbar at the top */
+  top: 0; /* Aligns it to the top */
+  left: 0;
+  width: 100%; /* Full width of the viewport */
+  z-index: 1000; /* Ensure it stays above other content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Flexbox layout for the menu items */
+.navbar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  align-items: center; /* Center items vertically */
+}
+
+/* Styling for individual menu items */
+.navbar-item {
+  margin-left: 20px; /* Adjust spacing between items */
+}
+
+/* Styling for the links within the navbar */
+.navbar-link {
+  color: white; /* Text color for the links */
+  text-decoration: none;
+  font-weight: bold; /* Optional: make the text bold */
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Styling for the active link */
+.navbar-item.active .navbar-link,
+.navbar-link:hover {
+  color: #f0f0f0; /* Slightly lighter color for hover and active state */
+  text-decoration: underline; /* Underline to indicate active link */
+}
+
+/* Responsive design: stack items vertically on smaller screens */
+@media (max-width: 768px) {
+  .navbar-menu {
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+  }
+
+  .navbar-item {
+    margin: 10px 0; /* Adjust spacing for vertical layout */
+  }
+}
