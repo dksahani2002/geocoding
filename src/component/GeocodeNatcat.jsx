@@ -88,7 +88,7 @@ function GeocodeNatcat() {
       if (respdata) {
         setCounter((prevCounter) => prevCounter + 1);
         exportedRows.push({
-          Addresses: row.Addresses,
+          ...row,
           Lat: respdata.address.lat,
           Long: respdata.address.lng,
           confidence_radius: respdata.address.confidence_radius,

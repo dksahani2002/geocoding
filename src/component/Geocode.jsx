@@ -87,7 +87,7 @@ function GeoCode() {
       if (respdata) {
         setCounter((prevCounter) => prevCounter + 1);
         exportedRows.push({
-          Addresses: row.Addresses,
+          ...row,
           Lat: respdata.lat,
           Long: respdata.lng,
           confidence_radius: respdata.confidence_radius,
