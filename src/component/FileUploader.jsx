@@ -14,7 +14,7 @@ const FileUploader = ({
   return (
     <div className="file-uploader">
       <div className="form-upload-container">
-        <h3>Address file (.xlsx/.csv)</h3>
+        <h3>Address file (.xlsx)</h3>
         <form className="custom-form" onSubmit={handleFileSubmit}>
           <input
             type="file"
