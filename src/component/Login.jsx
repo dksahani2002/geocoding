@@ -1,4 +1,3 @@
-// src/Login.js
 import React from 'react';
 import './Login.css';
 
@@ -18,6 +17,9 @@ const Login = () => {
           </div>
           <button type="submit" className="login-button">Login</button>
         </form>
+        <div className="progress-message">
+          <p>This feature is still in progress. Please check back later.</p>
+        </div>
       </div>
     </div>
   );
