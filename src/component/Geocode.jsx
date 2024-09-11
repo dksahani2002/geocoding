@@ -94,7 +94,7 @@ function GeoCode() {
           Long: respdata.lng,
           confidence_radius: respdata.confidence_radius,
           location_type: respdata.location_type,
-          formatted_address: respdata.formatted_address,
+          // formatted_address: respdata.formatted_address,
         });
 
       }else{
@@ -104,7 +104,7 @@ function GeoCode() {
           Long: null,
           confidence_radius: null,
           location_type: null,
-          formatted_address: null,
+          // formatted_address: null,
         });
       }
       setExportedData(exportedRows);
