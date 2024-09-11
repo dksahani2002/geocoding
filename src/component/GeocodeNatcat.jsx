@@ -61,7 +61,9 @@ function GeocodeNatcat() {
   const fetchDataForRow = async (row) => {
     try {
       const apiUrl = 'https://api.leptonmaps.com/v1/tata_aig/risk/natural_disasters';
-      const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';  
+      // const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';  
+      const apiKey = 'efb18de31ee850080a06bcad543153047f10f902430ae26e780b5c98576663d8';  
+      
       const headers = {
         accept: 'application/json',
         'x-api-key': apiKey,
@@ -109,12 +111,13 @@ function GeocodeNatcat() {
           distance_to_banks_m: respdata.distance.distance_to_banks,
           distance_to_hospitals_m: respdata.distance.distance_to_hospitals,
         });
+    setExportedData(exportedRows);
+
       }else{
         setCounter((prevCounter) => 0);
         setFlagAPI(false);
       }
     }
-    setExportedData(exportedRows);
     setExcelData(null);
     setFlagAPI(false);
   };

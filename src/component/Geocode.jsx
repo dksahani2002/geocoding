@@ -60,7 +60,8 @@ function GeoCode() {
   const fetchDataForRow = async (row) => {
     try {
       const apiUrl = 'https://api.leptonmaps.com/v1/geocode';
-      const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';  
+      const apiKey = 'efb18de31ee850080a06bcad543153047f10f902430ae26e780b5c98576663d8';  
+      // const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';  
       const headers = {
         accept: 'application/json',
         'x-api-key': apiKey,
@@ -84,8 +85,9 @@ function GeoCode() {
     }
     for (const row of excelData) {
       const respdata = await fetchDataForRow(row.Addresses);
+      setCounter((prevCounter) => prevCounter + 1);
+
       if (respdata) {
-        setCounter((prevCounter) => prevCounter + 1);
         exportedRows.push({
           ...row,
           Lat: respdata.lat,
@@ -94,9 +96,20 @@ function GeoCode() {
           location_type: respdata.location_type,
           formatted_address: respdata.formatted_address,
         });
+
+      }else{
+        exportedRows.push({
+          ...row,
+          Lat: null,
+          Long: null,
+          confidence_radius: null,
+          location_type: null,
+          formatted_address: null,
+        });
       }
+      setExportedData(exportedRows);
     }
-    setExportedData(exportedRows);
+    // setExportedData(exportedRows);
     setExcelData(null);
     setFlagAPI(false);
   };
@@ -129,8 +142,8 @@ function GeoCode() {
         isAdresscolumn={isAdresscolumn}
       />
       <ProgressDisplay counter={counter} flagAPI={flagAPI} />
-      <DataViewer excelData={excelData} />
       <DataViewer excelData={exportedData} />
+      <DataViewer excelData={excelData} />
     </div>
   );
 }
