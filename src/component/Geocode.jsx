@@ -60,8 +60,8 @@ function GeoCode() {
   const fetchDataForRow = async (row) => {
     try {
       const apiUrl = 'https://api.leptonmaps.com/v1/geocode';
-      const apiKey = 'efb18de31ee850080a06bcad543153047f10f902430ae26e780b5c98576663d8';  
-      // const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';  
+      // const apiKey = 'efb18de31ee850080a06bcad543153047f10f902430ae26e780b5c98576663d8';  
+      const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';  
       const headers = {
         accept: 'application/json',
         'x-api-key': apiKey,
