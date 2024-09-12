@@ -1,38 +1,19 @@
 /* src/GeocodeNatcat.css */
 
-/* General wrapper styling */
+/* Wrapper styling for the entire Geocode component */
 .wrapper {
+  padding: 20px; /* Add padding around the component */
+  background-color: #f8f9fa; /* Light background color for the wrapper */
+  min-height: 100vh; /* Ensure it takes full viewport height */
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center content horizontally */
-  padding: 20px; /* Add padding around the container */
-  /* max-width: 1200px; Limit width for better readability */
-  margin: 10px 10px; /* Center the container horizontally */
-  background-color: #f9f9f9; /* Light background for contrast */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  align-items: center; /* Center-align children horizontally */
+  
 }
 
-/* FileUploader component styling */
-.file-uploader {
-  width: 100%; /* Full width within the wrapper */
-  background-color: #ffffff; /* White background for form */
-  padding: 20px; /* Add padding around the form */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  margin-bottom: 20px; /* Space below the uploader */
-}
-
-.file-uploader .button-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center; /* Center buttons horizontally */
-  gap: 20px; /* Space between buttons */
-  margin-top: 20px; /* Space above button container */
-}
-
-.file-uploader .btn {
-  padding: 10px 20px;
+/* Button styling */
+.wrapper .btn {
+  padding: 12px 24px; /* Increase padding for a more prominent button */
   font-size: 16px;
   font-weight: bold;
   background-color: #007bff; /* Primary button color */
@@ -40,98 +21,61 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s; /* Add a scale transition for a subtle effect */
+  margin: 10px 0; /* Space above and below the button */
 }
 
-.file-uploader .btn:hover {
+/* Button hover effect */
+.wrapper .btn:hover {
   background-color: #0056b3; /* Darker shade for hover effect */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
 }
 
-.file-uploader .alert-danger {
-  margin-top: 15px;
+/* Alert styling for errors */
+.alert-danger {
   color: #dc3545;
   background-color: #f8d7da;
   border-color: #f5c6cb;
-  padding: 10px;
+  padding: 15px; /* Increase padding for better readability */
   border-radius: 5px;
-}
-
-/* ProgressDisplay component styling */
-.progress-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center items horizontally */
-  padding: 20px; /* Add padding around the container */
-  background-color: #f5f5f5; /* Light background color */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  margin-bottom: 30px; /* Space below the progress container */
-  text-align: center; /* Center text horizontally */
-}
-
-.progress-container h2 {
-  color: #003d79; /* Dark blue color for the heading */
-  font-size: 1.75rem; /* Font size for better readability */
-  margin-bottom: 20px; /* Space below the heading */
-}
-
-.progress-spinner {
-  margin-top: 20px;
-}
-
-.progress-spinner .MuiCircularProgress-root {
-  color: #007bff; /* Primary blue color for the spinner */
+  margin: 20px 0; /* Space above and below the alert */
+  text-align: center; /* Center-align text */
 }
 
 /* DataViewer component styling */
-.viewer {
-  margin-bottom: 30px;
-  width: 100%; /* Ensure the viewer takes the full width of its container */
+.data-viewer {
+  width: 100%; /* Full width to ensure the table spans the container */
+  overflow-x: auto; /* Enable horizontal scrolling for wide tables */
+  margin-top: 20px; /* Space above the DataViewer */
 }
 
-.viewer .table-responsive {
-  overflow-x: auto; /* Enable horizontal scrolling */
+/* Data table styling */
+.data-viewer table {
+  width: 100%; /* Full width for the table */
+  border-collapse: collapse; /* Remove space between table cells */
 }
 
-.viewer .table {
-  width: 100%; /* Full width of the viewer container */
-  border-collapse: collapse;
-  border: 1px solid #ddd;
+.data-viewer th, .data-viewer td {
+  border: 1px solid #dee2e6; /* Light grey border for table cells */
+  padding: 12px; /* Padding inside table cells */
+  text-align: left; /* Align text to the left */
 }
 
-.viewer .table th,
-.viewer .table td {
-  padding: 12px;
-  text-align: left;
-  border: 1px solid #ddd;
+.data-viewer th {
+  background-color: #e9ecef; /* Light grey background for header cells */
 }
 
-.viewer .table thead {
-  background-color: #f2f2f2;
+/* Progress display styling */
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px; /* Space below progress display */
 }
 
-.viewer .table th {
-  font-weight: bold;
-  color: #007bff;
-}
-
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .file-uploader .button-container {
-    flex-direction: column;
-  }
-
-  .file-uploader .btn {
-    margin-bottom: 10px;
-  }
-
-  .progress-container h2 {
-    font-size: 18px;
-  }
-
-  .viewer .table th,
-  .viewer .table td {
-    font-size: 14px;
-  }
+/* Styling for the progress counter text */
+.progress-container h2 {
+  margin: 0; /* Remove default margin */
+  font-size: 1.2rem; /* Font size for progress counter */
+  color: #333; /* Darker text color for better contrast */
 }

@@ -1,0 +1,67 @@
+/* src/AddressInput.css */
+
+/* Container for the address input component */
+.address-input-container {
+    margin-bottom: 20px; /* Space below the component */
+    text-align: center;
+    width: 100%;
+  }
+  
+  /* Form container styling */
+  .address-form-container {
+    background-color: #ffffff; /* Background color for the form */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  /* Heading style */
+  .address-form-container h3 {
+    color: #003d79; /* Dark blue color for heading */
+    margin-bottom: 20px; /* Space below heading */
+    font-size: 1.5rem; /* Font size for heading */
+  }
+  
+  /* Custom form styling */
+  .address-form-container form {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    gap: 20px; /* Space between form elements */
+  }
+  
+  /* Input field styling */
+  .address-form-container input[type="text"] {
+    padding: 12px; /* Padding inside input field */
+    font-size: 1rem; /* Font size */
+    border: 1px solid #cccccc; /* Light grey border */
+    border-radius: 4px; /* Rounded corners */
+    transition: border-color 0.3s; /* Smooth border color transition */
+  }
+  
+  .address-form-container input[type="text"]:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+  }
+  
+  /* Button styling */
+  .address-form-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007bff; /* Primary button color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth background color transition */
+  }
+  
+  .address-form-container button:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+  }
+  
+  .address-form-container button:disabled {
+    background-color: #c0c0c0; /* Gray color for disabled state */
+    cursor: not-allowed; /* Change cursor to indicate disabled state */
+  }
+  

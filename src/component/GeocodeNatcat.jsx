@@ -11,6 +11,7 @@ function GeocodeNatcat() {
   const [fileName, setFileName] = useState(''); // Added state for file name
   const [typeError, setTypeError] = useState(null);
   const [counter, setCounter] = useState(0);
+  const [errorcounter, seterrorcounter] = useState(0);
   const [exportedData, setExportedData] = useState(null);
   const [flagAPI, setFlagAPI] = useState(false);
   const [excelData, setExcelData] = useState(null);
@@ -114,7 +115,8 @@ function GeocodeNatcat() {
     setExportedData(exportedRows);
 
       }else{
-        setCounter((prevCounter) => 0);
+        // setCounter((prevCounter) => 0);
+        seterrorcounter((prevCounter)=>prevCounter+1);
         setFlagAPI(false);
       }
     }
@@ -149,7 +151,7 @@ function GeocodeNatcat() {
         text={"Get Geocode & Natcat"}
         isAdresscolumn={isAdresscolumn}
       />
-      <ProgressDisplay counter={counter} flagAPI={flagAPI} />
+      <ProgressDisplay counter={counter} flagAPI={flagAPI} errorcounter={errorcounter}/>
       <DataViewer excelData={excelData} />
       <DataViewer excelData={exportedData} />
     </div>

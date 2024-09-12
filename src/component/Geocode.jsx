@@ -5,17 +5,65 @@ import FileUploader from './FileUploader';
 import ProgressDisplay from './ProgressDisplay';
 import DataViewer from './DataViewer';
 import './GeocodeNatcat.css';
-
+import AddressInput from './AddressInput';
+import Button from './Button';
 function GeoCode() {
   const [excelFile, setExcelFile] = useState(null);
   const [fileName, setFileName] = useState(''); // Added state for file name
   const [typeError, setTypeError] = useState(null);
   const [counter, setCounter] = useState(0);
+  const [errorcounter, setErrorcounter] = useState(0);
   const [exportedData, setExportedData] = useState(null);
   const [flagAPI, setFlagAPI] = useState(false);
+  const [toggle, setToggle] = useState(true);
   const [excelData, setExcelData] = useState(null);
   const [isAdresscolumn,setIsAdresscolumn]=useState(true);
+  const [text_t,setText_t]=useState("Upload file");
 
+
+   
+  const fetchDataForAddress = async (address) => {
+    setFlagAPI(true);
+    try {
+      const apiUrl = 'https://api.leptonmaps.com/v1/geocode';
+      // const apiKey = 'efb18de31ee850080a06bcad543153047f10f902430ae26e780b5c98576663d8';
+      const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';  
+      const headers = {
+        accept: 'application/json',
+        'x-api-key': apiKey,
+      };
+      const params = { address };
+      const response = await axios.get(apiUrl, { params, headers });
+      setFlagAPI(false);
+      return response.data;
+
+    } catch (error) {
+      console.error('Error fetching data for address:', address, error);
+      setFlagAPI(false);
+      return null;
+    }
+    
+  };
+
+  const handleAddressSubmit = async (address) => {
+    setFlagAPI(true);
+    setCounter(1);
+    setExcelData(null);
+    setExportedData(null);
+    const data = await fetchDataForAddress(address);
+    if (data) {
+      setExportedData(
+         [{
+        Address: address,
+        Lat: data.lat,
+        Long: data.lng,
+        confidence_radius: data.confidence_radius,
+        location_type: data.location_type,
+        formatted_address: data.formatted_address,
+      }]);
+    }
+    setFlagAPI(false);
+  };
   const handleFile = (e) => {
     let fileTypes = [
       'application/vnd.ms-excel',
@@ -60,8 +108,8 @@ function GeoCode() {
   const fetchDataForRow = async (row) => {
     try {
       const apiUrl = 'https://api.leptonmaps.com/v1/geocode';
-      const apiKey = 'efb18de31ee850080a06bcad543153047f10f902430ae26e780b5c98576663d8';  
-      // const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';  
+      // const apiKey = 'efb18de31ee850080a06bcad543153047f10f902430ae26e780b5c98576663d8';  
+      const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';  
       const headers = {
         accept: 'application/json',
         'x-api-key': apiKey,
@@ -97,10 +145,12 @@ function GeoCode() {
           formatted_address: respdata.formatted_address,
         });
 
+      }else{
+        setErrorcounter((prevCounter) => prevCounter + 1);
+
       } 
       setExportedData(exportedRows);
     }
-    // setExportedData(exportedRows);
     setExcelData(null);
     setFlagAPI(false);
   };
@@ -120,9 +170,19 @@ function GeoCode() {
     const exportFileName = `exported_Geocode_${fileName}`;
     XLSX.writeFile(workbook, exportFileName);
   };
-
+  const setToggleandText=()=>{
+    setToggle(!toggle);
+    if(text_t==="Upload file"){
+      setText_t("Type Address")
+    }else{
+      setText_t("Upload file")
+    }
+  }
   return (
     <div className="wrapper">
+      <Button submit={setToggleandText} text={text_t}/>
+      
+     {toggle? (<AddressInput onSubmit={handleAddressSubmit}/>):(
       <FileUploader
         handleFile={handleFile}
         handleFileSubmit={handleFileSubmit}
@@ -131,8 +191,8 @@ function GeoCode() {
         handleClick={handleClick}
         text={"Get Geocode"}
         isAdresscolumn={isAdresscolumn}
-      />
-      <ProgressDisplay counter={counter} flagAPI={flagAPI} />
+      />)}
+      <ProgressDisplay counter={counter} flagAPI={flagAPI} errorcounter={errorcounter}/>
       <DataViewer excelData={exportedData} />
       <DataViewer excelData={excelData} />
     </div>

@@ -2,7 +2,12 @@
 
 /* Container for the file uploader component */
 .file-uploader {
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Space below the component */
+  padding: 20px; /* Add padding around the component */
+  background-color: #f8f9fa; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  width: 100% ;
 }
 
 /* Form upload container styling */
@@ -11,6 +16,7 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Space below the container */
 }
 
 /* Heading style */
@@ -25,6 +31,7 @@
   display: flex;
   flex-direction: column; /* Stack elements vertically */
   gap: 20px; /* Space between form elements */
+
 }
 
 /* Input field styling */
@@ -38,6 +45,7 @@
 /* Button container styling */
 .button-container {
   display: flex;
+  justify-content: center; /* Align buttons to the end */
   gap: 20px; /* Spacing between buttons */
   margin-top: 20px; /* Space above button container */
 }
@@ -52,20 +60,21 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s; /* Add a scale transition for a subtle effect */
 }
 
 /* Button hover effect */
 .button-container .btn:hover {
   background-color: #0056b3; /* Darker shade for hover effect */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
 }
 
 /* Alert styling */
 .alert-danger {
-  margin-top: 15px;
-  color: #dc3545;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-  padding: 10px;
-  border-radius: 5px;
+  margin-top: 15px; /* Space above the alert */
+  color: #dc3545; /* Red color for text */
+  background-color: #f8d7da; /* Light red background */
+  border-color: #f5c6cb; /* Light red border */
+  padding: 10px; /* Padding inside the alert */
+  border-radius: 5px; /* Rounded corners */
 }
