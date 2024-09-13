@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import * as XLSX from 'xlsx';
-import axios from 'axios';
 import FileUploader from './FileUploader';
 import ProgressDisplay from './ProgressDisplay';
 import DataViewer from './DataViewer';
 import './GeocodeNatcat.css';
 import AddressInput from './AddressInput';
 import Button from './Button';
-function GeoCode() {
+import { fetchDataForAddress } from '../function/Geocodefunction';
+function GeoCode() {  
   const [excelFile, setExcelFile] = useState(null);
   const [fileName, setFileName] = useState(''); // Added state for file name
   const [typeError, setTypeError] = useState(null);
@@ -22,35 +22,13 @@ function GeoCode() {
 
 
    
-  const fetchDataForAddress = async (address) => {
-    setFlagAPI(true);
-    try {
-      const apiUrl = 'https://api.leptonmaps.com/v1/geocode';
-      // const apiKey = 'efb18de31ee850080a06bcad543153047f10f902430ae26e780b5c98576663d8';
-      const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';  
-      const headers = {
-        accept: 'application/json',
-        'x-api-key': apiKey,
-      };
-      const params = { address };
-      const response = await axios.get(apiUrl, { params, headers });
-      setFlagAPI(false);
-      return response.data;
-
-    } catch (error) {
-      console.error('Error fetching data for address:', address, error);
-      setFlagAPI(false);
-      return null;
-    }
-    
-  };
 
   const handleAddressSubmit = async (address) => {
     setFlagAPI(true);
-    setCounter(1);
     setExcelData(null);
     setExportedData(null);
     const data = await fetchDataForAddress(address);
+    setCounter(1);
     if (data) {
       setExportedData(
          [{
@@ -81,6 +59,7 @@ function GeoCode() {
           setExcelFile(e.target.result);
         };
       } else {
+        setIsAdresscolumn(true);
         setTypeError('Please select only excel file types');
         setExcelFile(null);
         setFileName(''); // Clear the file name on error
@@ -90,6 +69,7 @@ function GeoCode() {
 
   const handleFileSubmit = (e) => {
     e.preventDefault();
+    setIsAdresscolumn(true);
     if (excelFile) {
       const workbook = XLSX.read(excelFile, { type: 'buffer' });
       const worksheetName = workbook.SheetNames[0];
@@ -105,24 +85,6 @@ function GeoCode() {
     }
   };
 
-  const fetchDataForRow = async (row) => {
-    try {
-      const apiUrl = 'https://api.leptonmaps.com/v1/geocode';
-      // const apiKey = 'efb18de31ee850080a06bcad543153047f10f902430ae26e780b5c98576663d8';  
-      const apiKey = '5db326e18af22487ba5453570d149cb12c253dbd57a9cd6d478afe43b399c580';  
-      const headers = {
-        accept: 'application/json',
-        'x-api-key': apiKey,
-      };
-      const params = { address: row };
-      const response = await axios.get(apiUrl, { params, headers });
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching data for row:', row, error);
-      return null;
-    }
-  };
-
   const handleExportClick = async () => {
     setFlagAPI(true);
     const exportedRows = [];
@@ -132,7 +94,7 @@ function GeoCode() {
       return;
     }
     for (const row of excelData) {
-      const respdata = await fetchDataForRow(row.Addresses);
+      const respdata = await fetchDataForAddress(row.Addresses);
       setCounter((prevCounter) => prevCounter + 1);
 
       if (respdata) {
@@ -160,8 +122,12 @@ function GeoCode() {
   };
 
   const exportToExcel = (data) => {
-    if (!fileName) {
+    if (!fileName ) {
       alert('No file uploaded');
+      return;
+    }
+    if (!data) {
+      alert('Geocode not done');
       return;
     }
     const worksheet = XLSX.utils.json_to_sheet(data);
@@ -171,6 +137,7 @@ function GeoCode() {
     XLSX.writeFile(workbook, exportFileName);
   };
   const setToggleandText=()=>{
+    setExcelData(null);
     setToggle(!toggle);
     if(text_t==="Upload file"){
       setText_t("Type Address")
@@ -182,14 +149,14 @@ function GeoCode() {
     <div className="wrapper">
       <Button submit={setToggleandText} text={text_t}/>
       
-     {toggle? (<AddressInput onSubmit={handleAddressSubmit}/>):(
+     {toggle? (<AddressInput onSubmit={handleAddressSubmit} text={"GeoCode"}/>):(
       <FileUploader
         handleFile={handleFile}
         handleFileSubmit={handleFileSubmit}
         typeError={typeError}
         handleExportClick={handleExportClick}
         handleClick={handleClick}
-        text={"Get Geocode"}
+        text={"Geocode"}
         isAdresscolumn={isAdresscolumn}
       />)}
       <ProgressDisplay counter={counter} flagAPI={flagAPI} errorcounter={errorcounter}/>

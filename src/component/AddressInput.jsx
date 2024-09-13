@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button from './Button';
 import './AddressInput.css';  // Import the CSS file
 
-const AddressInput = ({ onSubmit }) => {
+const AddressInput = ({ onSubmit ,text}) => {
   const [address, setAddress] = useState('');
 
   const handleSubmit = (e) => {
@@ -11,6 +11,8 @@ const AddressInput = ({ onSubmit }) => {
     if (address.trim()) {
       onSubmit(address.trim());
     //   setAddress('');
+    }else{
+        alert("Enter address");
     }
   };
 
@@ -26,7 +28,7 @@ const AddressInput = ({ onSubmit }) => {
             placeholder="Enter address"
             required
           />
-          <Button submit={handleSubmit} text="Get Geocode" />
+          <Button submit={handleSubmit} text={text} />
         </form>
       </div>
     </div>
